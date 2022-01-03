@@ -8,9 +8,25 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var loginViewModel = LoginViewModel()
+    @StateObject var chatViewModel = ConversationsViewModel()
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        ZStack{
+            
+            if loginViewModel.loggedIn{
+                
+                HomeView()
+                    .environmentObject(loginViewModel)
+                    .environmentObject(chatViewModel)
+                
+            }else{
+                NavigationView{
+                    LoginView()
+                }
+                .environmentObject(loginViewModel)
+                
+            }
+        }
     }
 }
 
